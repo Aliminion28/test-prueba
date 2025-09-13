@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "subject": "Ejemplo de Test"
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "¿El Sol es una estrella?",
+      "options": ["Sí", "No"],
+      "answer": 0,
+      "explanation": "El Sol es una estrella de tipo G."
+    },
+    {
+      "id": "q2",
+      "text": "¿La capital de Francia es Berlín?",
+      "options": ["Sí", "No"],
+      "answer": 1,
+      "explanation": "La capital es París."
+    },
+    {
+      "id": "q3",
+      "text": "¿2 + 2 = 4?",
+      "options": ["Sí", "No"],
+      "answer": 0,
+      "explanation": "2 + 2 siempre será 4."
+    }
+  ]
+}
