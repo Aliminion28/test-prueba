@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Test 1: A lost dog</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f7f7fb; margin: 0; padding: 20px; }
+  .card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  button { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc;
+           background: #eee; cursor: pointer; }
+  .btn-primary { background: #007bff; color: #fff; border: none; }
+  .option { display: block; margin: 6px 0; padding: 8px; border-radius: 6px;
+            border: 1px solid #ddd; cursor: pointer; }
+  .option.selected { background: #e0f0ff; border-color: #007bff; }
+  .correct { background: #d4edda; padding: 8px; border-radius: 6px; margin-top: 8px; }
+  .wrong { background: #f8d7da; padding: 8px; border-radius: 6px; margin-top: 8px; }
+</style>
+
+</head>
+<body>
+  <div class="card">
+    <h1>Test 1: A lost dog</h1>
+    <img src="../../../images/A1/Reading/test 1/image.png" alt="A lost dog" style="width:520px;align-items:center; margin-bottom:32px; border-radius:12px; display:block;">
+    <button id="startBtn" class="btn-primary">Start</button>
+  </div>
+  <div id="quizArea"></div>
+
+<script>
+let questions = [];
+let current = 0;
+let answers = {};
+
+document.getElementById('startBtn').addEventListener('click', loadQuestions);
+
+async function loadQuestions() {
+  try {
+    const res = await fetch('questions.json');
+    const data = await res.json();
+    questions = data.questions;
+    current = 0;
+    answers = {};
+    renderQuestion();
+  } catch (e) {
+    alert("No se pudo cargar el archivo questions.json");
+  }
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  const quizArea = document.getElementById('quizArea');
+  quizArea.innerHTML = `
+    <div class="card">
+      <h2>Question ${current+1} / ${questions.length}</h2>
+      <p>${q.text}</p>
+      <div id="opts"></div>
+      <div style="margin-top:12px">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn" class="btn-primary">Next</button>
+        <button id="finishBtn">Finish</button>
+      </div>
+      <div id="feedback"></div>
+    </div>
+  `;
+  const opts = document.getElementById('opts');
+  q.options.forEach((opt, idx) => {
+    const el = document.createElement('div');
+    el.className = 'option' + (answers[q.id]===idx ? ' selected' : '');
+    el.textContent = opt;
+    el.onclick = () => { answers[q.id] = idx; renderQuestion(); };
+    opts.appendChild(el);
+  });
+
+  document.getElementById('prevBtn').onclick = () => { if (current > 0) { current--; renderQuestion(); } };
+  document.getElementById('nextBtn').onclick = () => { if (current < questions.length-1) { current++; renderQuestion(); } };
+  document.getElementById('finishBtn').onclick = finishQuiz;
+}
+
+function finishQuiz() {
+  let correctCount = 0;
+  questions.forEach(q => {
+    if (answers[q.id] === q.answer) correctCount++;
+  });
+  const quizArea = document.getElementById('quizArea');
+  quizArea.innerHTML = `
+    <div class="card">
+      <h2>Results</h2>
+      <p>Correct: ${correctCount} / ${questions.length}</p>
+      <p>Score: ${Math.round((correctCount/questions.length)*100)}%</p>
+      <button id="reviewBtn">Review Questions</button>
+    </div>
+  `;
+  document.getElementById('reviewBtn').onclick = showReview;
+}
+
+function showReview() {
+  const quizArea = document.getElementById('quizArea');
+  quizArea.innerHTML = '<h2>Revisión</h2>';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    const sel = answers[q.id];
+    div.innerHTML = `
+      <p><strong>Question ${i+1}:</strong> ${q.text}</p>
+      <p>Your Answer: ${sel!==undefined ? q.options[sel] : '<em>No respondida</em>'}</p>
+      <p>Correct: ${q.options[q.answer]}</p>
+      <p>${q.explanation}</p>
+    `;
+    quizArea.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
