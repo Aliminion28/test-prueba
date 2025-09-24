@@ -4,30 +4,21 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Test 1: A lost dog</title>
+
 <style>
-  body { font-family: Arial, sans-serif; background: #f7f7fb; margin: 0; padding: 20px; }
-  .card { background: #fff; border-radius: 8px; padding: 18px; margin-bottom: 12px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-  button { padding: 8px 12px; border-radius: 6px; border: 1px solid #ccc;
-           background: #eee; cursor: pointer; }
-  .btn-primary { background: #000000; color: #fff; border: none; }
-  .option { display: block; margin: 6px 0; padding: 8px; border-radius: 6px;
-            border: 1px solid #ddd; cursor: pointer; }
-  .option.selected { background: #000000; border-color: #000000; }
-  .correct { background: #d4edda; padding: 8px; border-radius: 6px; margin-top: 8px; }
-  .wrong { background: #f8d7da; padding: 8px; border-radius: 6px; margin-top: 8px; }
-</style>
-<style>
+
   body { 
-  font-family: Arial; 
-  display:flex;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
   flex-direction: column; 
-  justify-content:center; 
-  align-items:center; 
-  height:100vh; 
+  align-items: center; 
   background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-  color: #fff; /* Letras en blanco */
-  }
+  min-height: 100vh; /* en vez de height */
+  color: #fff;
+}
+
   .card { 
   background:rgba(255,255,255,0.08); 
   padding:48px 40px; 
@@ -36,6 +27,7 @@
   text-align:center;
   color: #fff;
   min-width: 340px;
+  margin-bottom: 24px;
   }
   .image { 
   background:rgba(255,255,255,0.08); 
@@ -90,6 +82,27 @@
   h1, ul, li, a {
   color: #fff; /* Letras en blanco para títulos, listas y enlaces */
   }
+  .option { 
+  display: block; 
+  margin: 8px 0; 
+  padding: 12px; 
+  border-radius: 6px; 
+  border: 1px solid #fff; 
+  cursor: pointer; 
+  text-align: center; 
+  transition: background 0.2s, color 0.2s;
+}
+
+.option:hover { 
+  background: rgba(255,255,255,0.2); 
+}
+
+.option.selected { 
+  background: #fff; 
+  color: #d32f2f; 
+  font-weight: bold; 
+}
+
 </style>
 </head>
 <body>
