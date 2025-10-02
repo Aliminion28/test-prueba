@@ -39,7 +39,7 @@
       "explanation": "There is a reward for finding the dog."
     },
     {
-      "id": "q4",
+      "id": "q6",
       "text": "The dog was lost in Central Park.",
       "options": ["True", "False"],
       "answer": 0,
