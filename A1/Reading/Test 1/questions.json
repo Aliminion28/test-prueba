@@ -28,7 +28,7 @@
       "id": "q4",
       "text": "The dog was lost on Monday morning.",
       "options": ["True", "False"],
-      "answer": 0,
+      "answer": 1,
       "explanation": "The dog was lost on Monday afternoon."
     },
     {
