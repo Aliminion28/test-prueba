@@ -125,7 +125,7 @@ async function loadQuestions() {
     const res = await fetch('questions.json');
     const data = await res.json();
     questions = data.questions;
-    current = 1;
+    current = 0;
     answers = {};
     renderQuestion();
   } catch (e) {
