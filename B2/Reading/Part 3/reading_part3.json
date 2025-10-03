@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "subject": "Reading Part 3 – Word Formation"
+  },
+  "questions": [
+    {"id": "p3_q17", "text": "People experience a loss of (17) ____ when sleep is lacking.", "base_word": "CONCENTRATE", "answer": "concentration", "explanation": "The noun form is 'concentration'."},
+    {"id": "p3_q18", "text": "Teenagers in (18) ____ need more sleep than adults.", "base_word": "PARTICULAR", "answer": "particular", "explanation": "'In particular' is the correct phrase."},
+    {"id": "p3_q19", "text": "This can create (19) ____ at school.", "base_word": "DIFFICULT", "answer": "difficulties", "explanation": "Plural noun 'difficulties' is correct."},
+    {"id": "p3_q20", "text": "Avoiding caffeine in the evening is (20) ____.", "base_word": "HELP", "answer": "helpful", "explanation": "Adjective form 'helpful' is needed."},
+    {"id": "p3_q21", "text": "Another (21) ____ is to make bedrooms dark and quiet.", "base_word": "SUGGEST", "answer": "suggestion", "explanation": "The noun 'suggestion' fits here."},
+    {"id": "p3_q22", "text": "Sleep is not a (22) ____ luxury, but a necessity.", "base_word": "CHOOSE", "answer": "chosen", "explanation": "Correct adjective is 'chosen luxury'."},
+    {"id": "p3_q23", "text": "With better habits, our (23) ____ increases.", "base_word": "PRODUCT", "answer": "productivity", "explanation": "Noun 'productivity' is correct."},
+    {"id": "p3_q24", "text": "Our overall (24) ____ gets stronger.", "base_word": "HEALTHY", "answer": "health", "explanation": "Noun form 'health' is correct."}
+  ]
+}

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reading Part 1 – Multiple Choice Cloze</title>
+
+<style>
+
+  body { 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  min-height: 100vh; /* en vez de height */
+  color: #fff;
+}
+
+  .card { 
+  background:rgba(255,255,255,0.08); 
+  padding:48px 40px; 
+  border-radius:16px; 
+  box-shadow:0 8px 32px rgba(0,0,0,0.18); 
+  text-align:center;
+  color: #fff;
+  min-width: 340px;
+  margin-bottom: 24px;
+  }
+  .image { 
+  background:rgba(255,255,255,0.08); 
+  padding:48px 40px; 
+  border-radius:16px; 
+  box-shadow:0 8px 32px rgba(0,0,0,0.18); 
+  text-align:center;
+  color: #fff;
+  min-width: 340px;
+  }
+  input { 
+  display:block; 
+  margin:14px auto; 
+  padding:10px; 
+  width:90%; 
+  border-radius:6px; 
+  border:none; 
+  background:rgba(255,255,255,0.18); 
+  color:#fff;
+  font-size:16px;
+  outline:none;
+  }
+  input::placeholder {
+  color: #ffeaea;
+  opacity: 0.8;
+  }
+  button { 
+  padding:10px 18px; 
+  background:#fff; 
+  color:#d32f2f; 
+  border:none; 
+  border-radius:8px; 
+  cursor:pointer; 
+  font-weight:bold;
+  font-size:16px;
+  margin-top:10px;
+  transition: background 0.2s, color 0.2s;
+  }
+  button:hover {
+  background: #d32f2f;
+  color: #fff;
+  border: 1px solid #fff;
+  }
+  #msg {
+  color: #fff;
+  background:rgba(211,47,47,0.7);
+  border-radius:6px;
+  padding:6px 0;
+  margin-top:10px;
+  font-weight:bold;
+  }
+  h1, ul, li, a {
+  color: #fff; /* Letras en blanco para títulos, listas y enlaces */
+  }
+  .option { 
+  display: block; 
+  margin: 8px 0; 
+  padding: 12px; 
+  border-radius: 6px; 
+  border: 1px solid #fff; 
+  cursor: pointer; 
+  text-align: center; 
+  transition: background 0.2s, color 0.2s;
+}
+
+.option:hover { 
+  background: rgba(255,255,255,0.2); 
+}
+
+.option.selected { 
+  background: #fff; 
+  color: #d32f2f; 
+  font-weight: bold; 
+}
+
+</style>
+</head>
+<body>
+  <div class="card">
+  <h1><b>Reading Part 1 – Multiple Choice Cloze</b></h1>
+  <div class="reading-text">
+    <b>Read the text and choose the correct answer (A, B, C or D).</b>
+  </div>
+<div class="reading-text"></div>
+    <h2>A holiday to remember</h2>
+
+    When my parents suggested going on a camping trip, I wasn’t very (1) ____ on the idea. I imagined spending a week in the middle of nowhere, without internet or hot showers. But when we arrived at the campsite, I quickly (2) ____ my mind.
+
+    The place was beautiful: tall trees, a clear river, and a small shop that sold everything we could possibly (3) ____. On the first evening, we sat around a fire, cooking sausages and telling stories. I realised it was actually quite (4) ____ to be away from technology for a while.
+
+    The next day, we decided to explore the nearby forest. It was amazing to see so many different birds and (5) ____ insects in their natural habitat. We also went swimming in the river, which was surprisingly (6) ____ despite the early morning chill.
+
+    During the evenings, we played board games and sang songs together, which made the experience even more (7) ____. On the last day, I felt sad to leave because the trip had been unexpectedly (8) ____ and had created memories we would always treasure.<br>
+  <button id="startBtn" class="btn-primary">Start</button>
+</div>
+  
+  <div id="quizArea"></div>
+
+<script>
+let questions = [];
+let current = 1;
+let answers = {};
+
+document.getElementById('startBtn').addEventListener('click', loadQuestions);
+
+async function loadQuestions() {
+  try {
+    const res = await fetch('reading_part1.json');
+    const data = await res.json();
+    questions = data.questions;
+    current = 0;
+    answers = {};
+    renderQuestion();
+  } catch (e) {
+    alert("No se pudo cargar el archivo reading_part1.json");
+  }
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  const quizArea = document.getElementById('quizArea');
+  quizArea.innerHTML = `
+    <div class="card">
+      <h2>Question ${current+1} / ${questions.length}</h2>
+      <p>${q.text}</p>
+      <div id="opts"></div>
+      <div style="margin-top:12px">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn" class="btn-primary">Next</button>
+        <button id="finishBtn">Finish</button>
+      </div>
+      <div id="feedback"></div>
+    </div>
+  `;
+  const opts = document.getElementById('opts');
+  q.options.forEach((opt, idx) => {
+    const el = document.createElement('div');
+    el.className = 'option' + (answers[q.id]===idx ? ' selected' : '');
+    el.textContent = opt;
+    el.onclick = () => { answers[q.id] = idx; renderQuestion(); };
+    opts.appendChild(el);
+  });
+
+  document.getElementById('prevBtn').onclick = () => { if (current > 0) { current--; renderQuestion(); } };
+  document.getElementById('nextBtn').onclick = () => { if (current < questions.length-1) { current++; renderQuestion(); } };
+  document.getElementById('finishBtn').onclick = finishQuiz;
+}
+
+function finishQuiz() {
+  let correctCount = 0;
+  questions.forEach(q => {
+    if (answers[q.id] === q.answer) correctCount++;
+  });
+  const quizArea = document.getElementById('quizArea');
+  quizArea.innerHTML = `
+    <div class="card">
+      <h2>Results</h2>
+      <p>Correct: ${correctCount} / ${questions.length}</p>
+      <p>Score: ${Math.round((correctCount/questions.length)*100)}%</p>
+      <button id="reviewBtn">Review Questions</button>
+    </div>
+  `;
+  document.getElementById('reviewBtn').onclick = showReview;
+}
+
+function showReview() {
+  const quizArea = document.getElementById('quizArea');
+  quizArea.innerHTML = '<h2>Revisión</h2>';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    const sel = answers[q.id];
+    div.innerHTML = `
+      <p><strong>Question ${i+1}:</strong> ${q.text}</p>
+      <p>Your Answer: ${sel!==undefined ? q.options[sel] : '<em>Not answered</em>'}</p>
+      <p>Correct: ${q.options[q.answer]}</p>
+      <p>${q.explanation}</p>
+    `;
+    quizArea.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>

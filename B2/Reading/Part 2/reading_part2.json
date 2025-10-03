@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "subject": "Reading Part 2 – Open Cloze"
+  },
+  "questions": [
+    {
+      "id": "r2_q1",
+      "text": "The new high-speed train is the fastest one ever (1) ____ built.",
+      "answer": "been",
+      "explanation": "Correct form: 'been built'. The passive perfect form is needed."
+    },
+    {
+      "id": "r2_q2",
+      "text": "Travelling at over 600 km/h, it (2) ____ faster than most airplanes.",
+      "answer": "is",
+      "explanation": "Present simple 'is' is used to describe a fact."
+    },
+    {
+      "id": "r2_q3",
+      "text": "Its success is due to the use of magnetic levitation, which (3) ____ it to float above the tracks.",
+      "answer": "allows",
+      "explanation": "'Allows it to float' correctly shows the function of magnetic levitation."
+    },
+    {
+      "id": "r2_q4",
+      "text": "This technology reduces friction, making the journey smoother and more (4) ____ for passengers.",
+      "answer": "comfortable",
+      "explanation": "'Comfortable' is the correct adjective describing passenger experience."
+    },
+    {
+      "id": "r2_q5",
+      "text": "The trains are also designed with comfort in mind: seats are spacious and (5) ____ adjustable for long journeys.",
+      "answer": "fully",
+      "explanation": "'Fully adjustable' is the correct collocation."
+    },
+    {
+      "id": "r2_q6",
+      "text": "Onboard services include Wi-Fi and a variety of food (6) ____.",
+      "answer": "options",
+      "explanation": "'Food options' correctly refers to the available meals."
+    },
+    {
+      "id": "r2_q7",
+      "text": "It is remarkable how engineers managed to combine speed, safety, and (7) ____ in a single design.",
+      "answer": "efficiency",
+      "explanation": "'Efficiency' fits the context of technical and operational design."
+    },
+    {
+      "id": "r2_q8",
+      "text": "Many passengers agree that taking this train is not only (8) ____ but also an unforgettable experience.",
+      "answer": "exciting",
+      "explanation": "'Exciting' matches the feeling described by passengers."
+    }
+  ]
+}

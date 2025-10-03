@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reading Part 2 – Open Cloze</title>
+<style>
+body { 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  min-height: 100vh;
+  color: #fff;
+}
+.card { 
+  background:rgba(255,255,255,0.08); 
+  padding:48px 40px; 
+  border-radius:16px; 
+  box-shadow:0 8px 32px rgba(0,0,0,0.18); 
+  text-align:center;
+  color: #fff;
+  min-width:340px;
+  margin-bottom:24px;
+}
+input { 
+  display:block; 
+  margin:14px auto; 
+  padding:10px; 
+  width:90%; 
+  border-radius:6px; 
+  border:none; 
+  background:rgba(255,255,255,0.18); 
+  color:#fff;
+  font-size:16px;
+  outline:none;
+}
+input::placeholder { color:#ffeaea; opacity:0.8; }
+button { 
+  padding:10px 18px; 
+  background:#fff; 
+  color:#d32f2f; 
+  border:none; 
+  border-radius:8px; 
+  cursor:pointer; 
+  font-weight:bold;
+  font-size:16px;
+  margin-top:10px;
+  transition: background 0.2s, color 0.2s;
+}
+button:hover { background:#d32f2f; color:#fff; border:1px solid #fff; }
+.feedback { margin-top:10px; font-weight:bold; }
+.correct { color:#00ff00; }
+.incorrect { color:#ffeb3b; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Reading Part 2 – Open Cloze</h1>
+  <div class="reading-text">
+The new high-speed train is the fastest one ever (1) ____ built. Travelling at over 600 km/h, it (2) ____ faster than most airplanes. Its success is due to the use of magnetic levitation, which (3) ____ it to float above the tracks. This technology reduces friction, making the journey smoother and more (4) ____ for passengers.
+
+The trains are also designed with comfort in mind: seats are spacious and (5) ____ adjustable for long journeys. Onboard services include Wi-Fi and a variety of food (6) ____. It is remarkable how engineers managed to combine speed, safety, and (7) ____ in a single design. Many passengers agree that taking this train is not only (8) ____ but also an unforgettable experience.
+  </div>
+  <button id="startBtn">Start</button>
+</div>
+
+<div id="quizArea"></div>
+
+<script>
+let questions = [];
+let current = 0;
+let userAnswers = [];
+
+document.getElementById('startBtn').addEventListener('click', loadQuestions);
+
+async function loadQuestions() {
+  try {
+    const res = await fetch('reading_part2.json');
+    const data = await res.json();
+    questions = data.questions;
+    current = 0;
+    userAnswers = [];
+    renderQuestion();
+  } catch(e) {
+    alert("No se pudo cargar el JSON");
+  }
+}
+
+function renderQuestion() {
+  const qa = document.getElementById('quizArea');
+  if(current < questions.length){
+    const q = questions[current];
+    qa.innerHTML = `
+      <div class="card">
+        <h2>Question ${current + 1} of ${questions.length}</h2>
+        <p>${q.text.replace(/\(\d\) ____/,'( )')}</p>
+        <input type="text" id="userAnswer" placeholder="Type your answer">
+        <button id="nextBtn">${current === questions.length - 1 ? 'Finish' : 'Next'}</button>
+      </div>
+    `;
+    document.getElementById('nextBtn').onclick = saveAnswer;
+  } else {
+    showResults();
+  }
+}
+
+function saveAnswer() {
+  const answer = document.getElementById('userAnswer').value.trim();
+  userAnswers.push(answer);
+  current++;
+  renderQuestion();
+}
+
+function showResults() {
+  const qa = document.getElementById('quizArea');
+  let correctCount = 0;
+  qa.innerHTML = '<div class="card"><h2>Results</h2></div>';
+  const container = qa.querySelector('.card');
+
+  questions.forEach((q,i)=>{
+    const isCorrect = userAnswers[i].trim().toLowerCase() === q.answer.toLowerCase();
+    if(isCorrect) correctCount++;
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <p><strong>Question ${i+1}:</strong> ${q.text}</p>
+      <p>Your answer: ${userAnswers[i]}</p>
+      <p>Correct answer: ${q.answer}</p>
+      <p class="${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</p>
+      <hr>
+    `;
+    container.appendChild(div);
+  });
+
+  const percentage = Math.round((correctCount / questions.length) * 100);
+  const scoreDiv = document.createElement('div');
+  scoreDiv.innerHTML = `<h3>Score: ${percentage}% (${correctCount} / ${questions.length})</h3>`;
+  container.appendChild(scoreDiv);
+}
+</script>
+
+</body>
+</html>

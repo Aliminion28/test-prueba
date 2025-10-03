@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Reading Part 3 – Word Formation</title>
+<style>
+body { 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+  min-height: 100vh;
+  color: #fff;
+}
+.card { 
+  background:rgba(255,255,255,0.08); 
+  padding:48px 40px; 
+  border-radius:16px; 
+  box-shadow:0 8px 32px rgba(0,0,0,0.18); 
+  text-align:center;
+  color: #fff;
+  min-width:340px;
+  margin-bottom:24px;
+}
+input { 
+  display:block; 
+  margin:14px auto; 
+  padding:10px; 
+  width:90%; 
+  border-radius:6px; 
+  border:none; 
+  background:rgba(255,255,255,0.18); 
+  color:#fff;
+  font-size:16px;
+  outline:none;
+}
+input::placeholder { color:#ffeaea; opacity:0.8; }
+button { 
+  padding:10px 18px; 
+  background:#fff; 
+  color:#d32f2f; 
+  border:none; 
+  border-radius:8px; 
+  cursor:pointer; 
+  font-weight:bold;
+  font-size:16px;
+  margin-top:10px;
+  transition: background 0.2s, color 0.2s;
+}
+button:hover { background:#d32f2f; color:#fff; border:1px solid #fff; }
+.feedback { margin-top:10px; font-weight:bold; }
+.correct { color:#00ff00; }
+.incorrect { color:#ffeb3b; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Reading Part 3 – Word Formation</h1>
+  <p>Transform the word in capitals to complete the text correctly.</p>
+  <div class="reading-text">
+
+<h2>The Importance of Sleep</h2>
+
+Sleep is (0) ……… (VITAL) for good health. During sleep, the body repairs itself and prepares for the next day. Without enough sleep, people experience a loss of (17) ……… (CONCENTRATE) and a reduction in memory.
+
+Research shows that teenagers, in (18) ……… (PARTICULAR), need more sleep than adults, yet they often go to bed late. This can create (19) ……… (DIFFICULT) at school, where they are expected to be fully awake early in the morning.
+
+Experts suggest creating a regular routine. Avoiding caffeine in the evening is (20) ……… (HELP) and so is reducing screen time before bed. Another (21) ……… (SUGGEST) is to make bedrooms as quiet and dark as possible.
+
+Although modern life encourages us to stay busy, we must remember that sleep is not a (22) ……… (CHOOSE) luxury, but a necessity. With better sleep habits, our (23) ……… (PRODUCT) increases, our mood improves and our overall (24) ……… (HEALTHY) gets stronger.
+  </div>
+  <button id="startBtn">Start</button>
+</div>
+
+<div id="quizArea"></div>
+
+<script>
+let questions = [];
+let current = 0;
+let userAnswers = [];
+
+document.getElementById('startBtn').addEventListener('click', loadQuestions);
+
+async function loadQuestions() {
+  try {
+    const res = await fetch('reading_part3.json'); // aquí va tu JSON de Part 3
+    const data = await res.json();
+    questions = data.questions;
+    current = 0;
+    userAnswers = [];
+    renderQuestion();
+  } catch(e) {
+    alert("No se pudo cargar el JSON de Part 3");
+  }
+}
+
+function renderQuestion() {
+  const qa = document.getElementById('quizArea');
+  if(current < questions.length){
+    const q = questions[current];
+    qa.innerHTML = `
+      <div class="card">
+        <h2>Question ${current + 1} of ${questions.length}</h2>
+        <p>${q.text.replace(/\(\d+\)/,'( )')}</p>
+        <p>Base word: <span class="base-word">${q.base_word}</span></p>
+        <input type="text" id="userAnswer" placeholder="Type your answer">
+        <button id="nextBtn">${current === questions.length - 1 ? 'Finish' : 'Next'}</button>
+      </div>
+    `;
+    document.getElementById('nextBtn').onclick = saveAnswer;
+  } else {
+    showResults();
+  }
+}
+
+function saveAnswer() {
+  const answer = document.getElementById('userAnswer').value.trim();
+  userAnswers.push(answer);
+  current++;
+  renderQuestion();
+}
+
+function showResults() {
+  const qa = document.getElementById('quizArea');
+  let correctCount = 0;
+  qa.innerHTML = '<div class="card"><h2>Results</h2></div>';
+  const container = qa.querySelector('.card');
+
+  questions.forEach((q,i)=>{
+    const isCorrect = userAnswers[i].trim().toLowerCase() === q.answer.toLowerCase();
+    if(isCorrect) correctCount++;
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <p><strong>Question ${i+1}:</strong> ${q.text}</p>
+      <p>Base word: ${q.base_word}</p>
+      <p>Your answer: ${userAnswers[i]}</p>
+      <p>Correct answer: ${q.answer}</p>
+      <p class="${isCorrect ? 'correct' : 'incorrect'}">${isCorrect ? '✓ Correct' : '✗ Wrong'}</p>
+      <hr>
+    `;
+    container.appendChild(div);
+  });
+
+  const percentage = Math.round((correctCount / questions.length) * 100);
+  const scoreDiv = document.createElement('div');
+  scoreDiv.innerHTML = `<h3>Score: ${percentage}% (${correctCount} / ${questions.length})</h3>`;
+  container.appendChild(scoreDiv);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "subject": "Reading Part 4 – Key Word Transformations"
+  },
+  "questions": [
+    {
+      "id": "p4_q25",
+      "text": "I haven’t eaten sushi for years",
+      "keyword": "LAST",
+      "answer": "I last ate sushi years ago",
+      "explanation": "'Last ate' expresses the most recent time."
+    },
+    {
+      "id": "p4_q26",
+      "text": "“Do you know where the library is?” asked the tourist",
+      "keyword": "WHERE",
+      "answer": "The tourist asked me where the library was",
+      "explanation": "Reported speech requires past tense 'was'."
+    },
+    {
+      "id": "p4_q27",
+      "text": "It isn’t necessary to bring your own equipment",
+      "keyword": "HAVE",
+      "answer": "You don’t have to bring your own equipment",
+      "explanation": "'Don’t have to' means 'not necessary'."
+    },
+    {
+      "id": "p4_q28",
+      "text": "Everyone thinks Maria speaks three languages fluently",
+      "keyword": "SAID",
+      "answer": "Maria is said to speak three languages fluently",
+      "explanation": "Passive reporting structure 'is said to'."
+    },
+    {
+      "id": "p4_q29",
+      "text": "I regret not studying harder for the exam",
+      "keyword": "WISH",
+      "answer": "I wish I had studied harder for the exam",
+      "explanation": "Past regret requires 'wish + past perfect'."
+    },
+    {
+      "id": "p4_q30",
+      "text": "The book was so interesting that I read it in one day",
+      "keyword": "SUCH",
+      "answer": "It was such an interesting book that I read it in one day",
+      "explanation": "'Such + adjective + noun' structure."
+    }
+  ]
+}

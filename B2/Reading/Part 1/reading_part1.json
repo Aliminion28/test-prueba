@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "subject": "Reading Part 1 – Multiple Choice Cloze"
+  },
+  "questions": [
+    {
+      "id": "r1_q1",
+      "text": "When my parents suggested going on a camping trip, I wasn’t very (1) ____ on the idea.",
+      "options": ["excited", "keen", "happy", "worried"],
+      "answer": 1,
+      "explanation": "'Keen on' means interested or enthusiastic. The text says he wasn’t very interested at first."
+    },
+    {
+      "id": "r1_q2",
+      "text": "But when we arrived at the campsite, I quickly (2) ____ my mind.",
+      "options": ["changed", "made", "switched", "altered"],
+      "answer": 0,
+      "explanation": "'Changed my mind' is the common idiomatic expression."
+    },
+    {
+      "id": "r1_q3",
+      "text": "…a small shop that sold everything we could possibly (3) ____.",
+      "options": ["wish", "need", "want", "desire"],
+      "answer": 1,
+      "explanation": "'Need' is the most natural word in this context."
+    },
+    {
+      "id": "r1_q4",
+      "text": "I realised it was actually quite (4) ____ to be away from technology for a while.",
+      "options": ["refreshing", "boring", "surprising", "challenging"],
+      "answer": 0,
+      "explanation": "'Refreshing' fits the context of enjoying time away from technology."
+    },
+    {
+      "id": "r1_q5",
+      "text": "It was amazing to see so many different birds and (5) ____ insects in their natural habitat.",
+      "options": ["interesting", "colourful", "rare", "tiny"],
+      "answer": 2,
+      "explanation": "The text highlights the variety and rarity of the insects, so 'rare' is correct."
+    },
+    {
+      "id": "r1_q6",
+      "text": "We also went swimming in the river, which was surprisingly (6) ____ despite the early morning chill.",
+      "options": ["warm", "cold", "refreshing", "comfortable"],
+      "answer": 2,
+      "explanation": "'Refreshing' is correct because it conveys a pleasantly cold feeling."
+    },
+    {
+      "id": "r1_q7",
+      "text": "During the evenings, we played board games and sang songs together, which made the experience even more (7) ____.",
+      "options": ["enjoyable", "exciting", "boring", "difficult"],
+      "answer": 0,
+      "explanation": "'Enjoyable' fits the positive feeling described in the text."
+    },
+    {
+      "id": "r1_q8",
+      "text": "On the last day, I felt sad to leave because the trip had been unexpectedly (8) ____ and had created memories we would always treasure.",
+      "options": ["fun", "challenging", "stressful", "relaxing"],
+      "answer": 0,
+      "explanation": "'Fun' is correct; the trip was enjoyable and memorable."
+    }
+  ]
+}
